@@ -1,11 +1,10 @@
 import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdRandom;
 
 public class ChaosTriangle {
     // Stores probability of each point being moved towards
-    double p1 = 0.95;
-    double p2 = 0.02;
-    double p3 = 0.33;
+    public static double p1;
+    public static double p2;
+    public static double p3;
 
     // Stores location of each of the original points
     double[] L1 = {0.1, 0.15};
@@ -16,6 +15,7 @@ public class ChaosTriangle {
     public static double[] CurrentPos = {0.1, 0.15};
 
     public void Init(){
+        StdDraw.setCanvasSize(1000,1000);
         StdDraw.setPenRadius(0.05);
         StdDraw.point(0.1,0.15);
         StdDraw.point(0.5,Math.sqrt(0.48) + 0.15);
@@ -26,13 +26,13 @@ public class ChaosTriangle {
         double dir = Math.random();
 
         if (dir <= p1){
-            StdDraw.setPenColor(StdDraw.BLUE);
+            StdDraw.setPenColor(StdDraw.RED);
             return 1;
         }else if (dir <= p1 + p2){
-            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setPenColor(StdDraw.GREEN);
             return 2;
         }else{
-            StdDraw.setPenColor(StdDraw.GREEN);
+            StdDraw.setPenColor(StdDraw.BLUE);
             return 3;
         }
     }
@@ -51,12 +51,16 @@ public class ChaosTriangle {
     }
 
     public static void main(String args[]){
-        int iterations = Integer.parseInt(args[0]);
+        p1 = Double.parseDouble(args[0]);
+        p2 = Double.parseDouble(args[1]);
+        p3 = Double.parseDouble(args[2]);
+        int iterations = Integer.parseInt(args[3]);
 
         ChaosTriangle T1 = new ChaosTriangle();
         T1.Init();
 
         StdDraw.setPenRadius(0.005);
+
         int i = 0;
         while(i < iterations){
             int n = T1.PickDirection();
